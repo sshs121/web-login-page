@@ -1,0 +1,11 @@
+/* Improved cloned CSS - Responsive and realistic */
+body { font-family: Arial, sans-serif; background: #f0f0f0; margin: 0; padding: 20px; box-sizing: border-box; }
+.container { max-width: 400px; margin: auto; background: white; padding: 20px; border-radius: 8px; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
+.logo { text-align: center; margin-bottom: 20px; }
+.logo img { width: 150px; max-width: 100%; }
+input { width: 100%; padding: 10px; margin: 10px 0; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box; }
+button { width: 100%; padding: 10px; background: #006c35; color: white; border: none; border-radius: 4px; cursor: pointer; }
+button:hover { background: #005227; }
+.error { color: red; font-size: 12px; display: none; }
+.footer { text-align: center; font-size: 12px; color: #666; margin-top: 20px; }
+@media (max-width: 600px) { .container { padding: 15px; } }
